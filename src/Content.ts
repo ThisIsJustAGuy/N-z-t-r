@@ -34,10 +34,15 @@ export default class Content {
         let megadott: string = params.sorSzék as string;
         if (!megadott) {
             res.write("Nincs kiválasztva szék.\n\n");
-        } else {
+        }
+         else {
             try {
-                res.write(`A megadott szék ${megoldás.szabadE(megadott) ? "szabad (o)" : "foglalt (x)"}\n\n`);
-            } catch (e) {
+                if (parseInt(megadott.split(',')[1]) <= 20) {
+                    res.write(`A megadott szék ${megoldás.szabadE(megadott) ? "szabad (o)" : "foglalt (x)"}\n\n`);
+                } else {
+                    res.write(`Nem megfelelő a bevitel!\n\n`);
+                }
+            } catch {
                 res.write(`Nem megfelelő a bevitel!\n\n`);
             }
         }

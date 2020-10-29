@@ -1,5 +1,4 @@
-﻿import { ENGINE_METHOD_RAND } from "constants";
-import fs from "fs";
+﻿import fs from "fs";
 import http from "http";
 import url from "url";
 import Megoldás from "./Megoldás";
@@ -33,10 +32,13 @@ export default class Content {
         res.write("2. feladat: Adjon meg egy sorszámot és egy székszámot (sor,szék):");
         res.write('<input type="text" placeholder="pl.:5,7" maxlength="5" name="sorSzék"/>\n');
         let megadott: string = params.sorSzék as string;
-        if (megadott) {
-            res.write(`A megadott szék ${megoldás.szabadE(megadott) ? "szabad (o)" : "foglalt (x)"}\n\n`);
-        } else {
+        if (!megadott) {
             res.write("Nincs kiválasztva szék.\n\n");
+        }
+        try {
+            res.write(`A megadott szék ${megoldás.szabadE(megadott) ? "szabad (o)" : "foglalt (x)"}\n\n`);
+        } catch (e) {
+            res.write(`Nem megfelelő a bevitel!\n\n`);
         }
 
         // 3. feladat
@@ -60,8 +62,8 @@ export default class Content {
         });
         res.write("\n\n\n");
 
-        res.write('GitHub repository: <a href="https://github.com/ThisIsJustAGuy/Nezoter">https://github.com/ThisIsJustAGuy/Nezoter</a>\n\n');
-        res.write('Heroku link: <a href="https://nezoter-ts.herokuapp.com/">https://nezoter-ts.herokuapp.com/</a>\n\n');
+        res.write('GitHub repository: <a href="https://github.com/ThisIsJustAGuy/Nezoter" target="_blank">https://github.com/ThisIsJustAGuy/Nezoter</a>\n\n');
+        res.write('Heroku link: <a href="https://nezoter-ts.herokuapp.com/" target="_blank">https://nezoter-ts.herokuapp.com/</a>\n\n');
         // <---- Fejezd be a kódolást
 
         res.write("</pre></form>");
